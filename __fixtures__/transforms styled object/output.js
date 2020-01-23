@@ -4,4 +4,4 @@ import { styled as _styled } from "goober";
 _styled("div");
 
 /*#__PURE__*/
-_styled("span")`color:red;padding:2px 4px;`;
+_styled("span")`color:${props => props.color};padding:2px 4px;&:hover{padding:1em;}`;

@@ -2,6 +2,9 @@ import { styled } from "../../macro";
 
 styled.div;
 styled.span`
-  color: red;
+  color: ${props => props.color};
   padding: 2px 4px;
+  &:hover {
+    padding: 1em;
+  }
 `;
