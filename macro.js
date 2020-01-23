@@ -43,9 +43,9 @@ function gooberMacro({ references, babel, state }) {
           t.stringLiteral(elementName)
         ])
       );
-      minimizeTemplate(parentPath.parent);
-      annotateAsPure(parentPath.parent);
     }
+    minimizeTemplate(parentPath.parent);
+    annotateAsPure(parentPath.parent);
   });
 
   const cssReferences = references.css || [];
