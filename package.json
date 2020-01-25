@@ -1,6 +1,7 @@
 {
   "private": true,
   "name": "goober.macro",
+  "main": "macro.js",
   "author": {
     "name": "Hadeeb Farhan",
     "email": "hadeebfarhan1@gmail.com",
