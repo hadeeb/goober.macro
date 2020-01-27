@@ -6,6 +6,8 @@ css`
 `;
 
 glob`
-  color: red;
-  padding: 2px 4px;
+  body {
+    color: red;
+    padding: 2px 4px;
+  }
 `;

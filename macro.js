@@ -89,11 +89,13 @@ function gooberMacro({ references, babel, state }) {
   cssReferences.forEach(ref => {
     minimizeTemplate(ref.parent);
     annotateAsPure(ref.parentPath);
+    transpileTemplate(ref.parentPath, t);
   });
 
   globReferences.forEach(ref => {
     minimizeTemplate(ref.parent);
     // glob is side-effect
+    transpileTemplate(ref.parentPath, t);
   });
 }
 
@@ -103,6 +105,23 @@ function gooberMacro({ references, babel, state }) {
 function minimizeTemplate(node) {
   if (node.type === "TaggedTemplateExpression") {
     minify(node.quasi);
+  }
+}
+
+/**
+ * @param {import("@babel/traverse").NodePath<import("@babel/types").Node>} nodePath
+ * @param {typeof import("@babel/core").types} t
+ */
+function transpileTemplate(nodePath, t) {
+  const node = nodePath.node;
+  if (node.type === "TaggedTemplateExpression") {
+    const quasisLength = node.quasi.quasis.length;
+    if (quasisLength === 1) {
+      let a = t.callExpression(node.tag, [
+        t.stringLiteral(node.quasi.quasis[0].value.raw)
+      ]);
+      nodePath.replaceWith(a);
+    }
   }
 }
 
