@@ -5,17 +5,7 @@ css`
   padding: 2px 4px;
 `;
 
-css(`
-  color: red;
-  padding: 2px 4px;
-`);
-
 glob`
   color: red;
   padding: 2px 4px;
 `;
-
-glob(`
-  color: red;
-  padding: 2px 4px;
-`);
