@@ -1,1 +1,1 @@
-https://github.com/cristianbote/goober/pull/94
+[babel-macro-goober](https://github.com/cristianbote/goober/tree/master/packages/babel-macro-goober)
