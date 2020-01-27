@@ -6,4 +6,4 @@ import { styled as _styled } from "goober";
 _styled("div");
 
 /*#__PURE__*/
-_createStyled("span", _css`color:red;`);
+_createStyled("span", _css("color:red;"));

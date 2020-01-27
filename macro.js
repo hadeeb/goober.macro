@@ -60,10 +60,9 @@ function gooberMacro({ references, babel, state }) {
   const styledReferences = references.styled || [];
 
   styledReferences.forEach(({ parentPath }) => {
-    const type = parentPath.type;
+    const node = parentPath.node;
 
-    if (type === "MemberExpression") {
-      const node = parentPath.node;
+    if (node.type === "MemberExpression") {
       const functionName = node.object.name;
       let elementName = node.property.name;
 
@@ -110,7 +109,6 @@ function minimizeTemplate(node) {
 /**
  *
  * @param {import("@babel/traverse").NodePath<import("@babel/types").Node>} nodePath
- * @param {typeof import("@babel/core").types} t
  */
 function replaceWithLite(nodePath, getLiteHelpers) {
   let shouldReplace = false;
@@ -119,17 +117,18 @@ function replaceWithLite(nodePath, getLiteHelpers) {
    */
   let quasi;
 
-  let node = nodePath.parent;
+  let parentNode = nodePath.parent;
+  let node = nodePath.node;
 
-  if (node.type === "TaggedTemplateExpression") {
-    const quasisLength = node.quasi.quasis.length;
+  if (parentNode.type === "TaggedTemplateExpression") {
+    const quasisLength = parentNode.quasi.quasis.length;
     shouldReplace = quasisLength === 1;
-    quasi = node.quasi;
+    quasi = parentNode.quasi;
   }
 
   if (!shouldReplace) return;
 
-  if (nodePath.type === "CallExpression") {
+  if (node.type === "CallExpression") {
     const helpers = getLiteHelpers();
     /**
      * @type {typeof import("@babel/core").types}
@@ -137,10 +136,13 @@ function replaceWithLite(nodePath, getLiteHelpers) {
     const t = helpers.t;
     const cssImport = helpers.css;
     const liteImport = helpers.lite;
-    let a = t.taggedTemplateExpression(t.identifier(cssImport.name), quasi);
+
+    let a = t.callExpression(t.identifier(cssImport.name), [
+      t.stringLiteral(quasi.quasis[0].value.raw)
+    ]);
 
     const liteFnImport = t.callExpression(t.identifier(liteImport.name), [
-      nodePath.node.arguments[0],
+      node.arguments[0],
       a
     ]);
 

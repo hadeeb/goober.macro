@@ -6,10 +6,10 @@ import { styled as _styled } from "goober";
 _styled("div");
 
 /*#__PURE__*/
-_createStyled("span", _css`color:red;`);
+_createStyled("span", _css("color:red;"));
 
 /*#__PURE__*/
 _styled(Comp);
 
 /*#__PURE__*/
-_createStyled(Comp, _css`padding:4px;`);
+_createStyled(Comp, _css("padding:4px;"));
