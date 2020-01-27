@@ -1,7 +1,9 @@
+import { css as _css } from "goober";
+import { createStyled as _createStyled } from "goober.macro/styled";
 import { styled as _styled } from "goober";
 
 /*#__PURE__*/
 _styled("div");
 
 /*#__PURE__*/
-_styled("span")`color:${props => props.color};padding:2px 4px;&:hover{padding:1em;}`;
+_createStyled("span", _css`color:red;`);
